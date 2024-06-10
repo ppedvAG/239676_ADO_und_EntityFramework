@@ -1,0 +1,64 @@
+﻿@page "/products"
+@using Microsoft.Data.SqlClient
+@using NorthwindBlazor.Model
+@using System.Globalization
+@inject IConfiguration config
+
+<h3>Products</h3>
+
+<table class="table">
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Packungseinheit</th>
+        <th>Lagermenge</th>
+        <th>Preis</th>
+        <th></th>
+    </thead>
+    <tbody>
+        @foreach (var p in products)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.QperUnit</td>
+                <td>@p.InStock</td>
+                <td>@p.Price.ToString("c", new CultureInfo("en-US"))</td>
+                <td><a href="/EditProduct/@p.Id">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    IEnumerable<Product> products = null;
+    protected override void OnInitialized()
+    {
+        products = LoadProducts();
+    }
+
+    private IEnumerable<Product> LoadProducts()
+    {
+        using var con = new SqlConnection(config.GetConnectionString("DefaultConnection"));
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+        cmd.CommandText = "SELECT * FROM Products ORDER BY UnitPrice";
+
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            var prod = new Product()
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("ProductId")),
+                    Name = reader.GetString(reader.GetOrdinal("ProductName")),
+                    InStock = reader.GetInt16(reader.GetOrdinal("UnitsInStock")),
+                    Price = reader.GetDecimal(reader.GetOrdinal("UnitPrice")),
+                    QperUnit = reader.GetString(reader.GetOrdinal("QuantityPerUnit"))
+                };
+
+            yield return prod;
+        }
+    }
+}

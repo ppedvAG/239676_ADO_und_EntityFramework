@@ -1,0 +1,50 @@
+﻿@page "/EditProduct/{Id:int}"
+@using NorthwindBlazor.Model
+@rendermode InteractiveServer
+
+
+<h3>EditProduct @Id</h3>
+
+<p>
+    Name<br />
+    <InputText @bind-Value="@product.Name" />
+</p>
+
+<p>
+    Packungseinheit<br />
+    <InputText @bind-Value="@product.QperUnit" />
+</p>
+
+<p>
+    Lagermenge<br />
+    <InputNumber @bind-Value="@product.InStock" />
+</p>
+
+<p>
+    Preis<br />
+    <InputNumber @bind-Value="@product.Price" />
+</p>
+
+<button @onclick="Save">Save</button>
+<p>@Info</p>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private Product product = null;
+    private string Info = string.Empty;
+
+    void Save()
+    {
+        //todo Save
+        Info = "Save kommt noch....";
+    }
+
+    protected override void OnInitialized()
+    {
+        //todo: load 1 product
+        product = new Product() { Name = "TODO Loading" };
+    }
+}
