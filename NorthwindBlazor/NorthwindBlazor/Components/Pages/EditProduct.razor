@@ -1,5 +1,8 @@
 ﻿@page "/EditProduct/{Id:int}"
+@using Microsoft.Data.SqlClient
 @using NorthwindBlazor.Model
+@inject IConfiguration config
+@inject NavigationManager nav
 @rendermode InteractiveServer
 
 
@@ -7,25 +10,25 @@
 
 <p>
     Name<br />
-    <InputText @bind-Value="@product.Name" />
+    <InputText @bind-Value="@product.Name" disabled="@isUiDisabled" />
 </p>
 
 <p>
     Packungseinheit<br />
-    <InputText @bind-Value="@product.QperUnit" />
+    <InputText @bind-Value="@product.QperUnit" disabled="@isUiDisabled" />
 </p>
 
 <p>
     Lagermenge<br />
-    <InputNumber @bind-Value="@product.InStock" />
+    <InputNumber @bind-Value="@product.InStock" disabled="@isUiDisabled" />
 </p>
 
 <p>
     Preis<br />
-    <InputNumber @bind-Value="@product.Price" />
+    <InputNumber @bind-Value="@product.Price" disabled="@isUiDisabled" />
 </p>
 
-<button @onclick="Save">Save</button>
+<button @onclick="Save" disabled="@isUiDisabled">Save</button>
 <p>@Info</p>
 
 @code {
@@ -35,16 +38,59 @@
 
     private Product product = null;
     private string Info = string.Empty;
+    private bool isUiDisabled = false;
 
-    void Save()
+    async void Save()
     {
-        //todo Save
-        Info = "Save kommt noch....";
+        isUiDisabled = true;
+        Info = "Saving...";
+        using var con = new SqlConnection(config.GetConnectionString("DefaultConnection"));
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+
+        cmd.CommandText = "UPDATE Products SET ProductName=@name,UnitsInStock=@stock,UnitPrice=@price,QuantityPerUnit=@qpu WHERE ProductID = @id";
+        cmd.Parameters.AddWithValue("@id", Id);
+        cmd.Parameters.AddWithValue("@name", product.Name);
+        cmd.Parameters.AddWithValue("@stock", product.InStock);
+        cmd.Parameters.AddWithValue("@price", product.Price);
+        cmd.Parameters.AddWithValue("@qpu", product.QperUnit);
+
+        var rowsAff = cmd.ExecuteNonQuery();
+        if (rowsAff == 1)
+        {
+            Info = "✅ Änderungen wurden erfolgreich gespeichert";
+            await Task.Delay(2000);
+            nav.NavigateTo("/Products");
+        }
+        else if (rowsAff == 0)
+            Info = "❌ KEINE Änderungen wurden gespeichert";
+        else
+            Info = $"⁉️ {rowsAff} Änderungen wurden gespeichert ???";
+
     }
 
     protected override void OnInitialized()
     {
-        //todo: load 1 product
-        product = new Product() { Name = "TODO Loading" };
+        using var con = new SqlConnection(config.GetConnectionString("DefaultConnection"));
+        con.Open();
+
+        using var cmd = con.CreateCommand();
+
+        cmd.CommandText = "SELECT * FROM Products WHERE ProductID = @id";
+        cmd.Parameters.AddWithValue("@id", Id);
+
+        using var reader = cmd.ExecuteReader();
+        reader.Read();
+
+        product = new Product()
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("ProductId")),
+                Name = reader.GetString(reader.GetOrdinal("ProductName")),
+                InStock = reader.GetInt16(reader.GetOrdinal("UnitsInStock")),
+                Price = reader.GetDecimal(reader.GetOrdinal("UnitPrice")),
+                QperUnit = reader.GetString(reader.GetOrdinal("QuantityPerUnit"))
+            };
+
     }
 }
