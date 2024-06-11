@@ -1,0 +1,2 @@
+﻿echo "Hallo"
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=HalloEfCore;Trusted_Connection=true;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer --context-dir Data --output-dir Models --force

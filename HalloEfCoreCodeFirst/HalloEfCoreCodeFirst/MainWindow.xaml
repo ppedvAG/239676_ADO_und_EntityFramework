@@ -1,0 +1,30 @@
+﻿<Window x:Class="HalloEfCoreCodeFirst.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HalloEfCoreCodeFirst"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="600">
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="8">
+            <Button Click="Save">Speichern</Button>
+            <Button Click="LoadMitarbeiter">Laden</Button>
+            <Button Click="CreateDemoData">Demo Daten erstellen</Button>
+        </WrapPanel>
+        <DataGrid AutoGenerateColumns="False" MouseDoubleClick="myGrid_MouseDoubleClick" Name="myGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="GebDatum" Binding="{Binding GebDatum}"/>
+                <DataGridTextColumn Header="Job" Binding="{Binding Job}"/>
+                <!--<DataGridTemplateColumn Header="Abteilungen">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding Abteilungen}" DisplayMemberPath="Bezeichnung"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
