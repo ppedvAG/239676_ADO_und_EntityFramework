@@ -14,7 +14,7 @@ namespace YummyInMyTummy.Logic
 
         public IEnumerable<Order> GetOpenOrders()
         {
-            return repo.GetAll<Order>().OrderBy(x => x.OrderDate).ToList();
+            return repo.GetAll<Order>().Where(x => x.Status >= 0).OrderBy(x => x.OrderDate).ToList();
         }
     }
 }
