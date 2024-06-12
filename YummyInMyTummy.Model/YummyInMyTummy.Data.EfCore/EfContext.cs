@@ -15,5 +15,13 @@ namespace YummyInMyTummy.Data.EfCore
         public DbSet<Food> Foods { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Topping> Toppings { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().HasOne(x => x.PaymentAddress).WithMany(x => x.AsPayment);
+            modelBuilder.Entity<Order>().HasOne(x => x.DeliveryAddress).WithMany(x => x.AsDelivery);
+
+            modelBuilder.Entity<Food>().UseTptMappingStrategy();
+        }
     }
 }

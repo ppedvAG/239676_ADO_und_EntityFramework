@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.Model", "Yum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.Data.EfCore", "YummyInMyTummy.Data.EfCore\YummyInMyTummy.Data.EfCore.csproj", "{5574A177-6B98-4CA6-AFD9-17770B7A3684}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.Data.EfCore.Tests", "YummyInMyTummy.Data.EfCore.Tests\YummyInMyTummy.Data.EfCore.Tests.csproj", "{F776315E-2059-4AF2-86E3-014AE312F202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F776315E-2059-4AF2-86E3-014AE312F202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F776315E-2059-4AF2-86E3-014AE312F202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F776315E-2059-4AF2-86E3-014AE312F202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F776315E-2059-4AF2-86E3-014AE312F202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
