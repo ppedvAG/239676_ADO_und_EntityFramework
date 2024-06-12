@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.34929.205
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.Model", "YummyInMyTummy.Model\YummyInMyTummy.Model.csproj", "{90A42E52-3636-4374-89D3-7646190DFA07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.Data.EfCore", "YummyInMyTummy.Data.EfCore\YummyInMyTummy.Data.EfCore.csproj", "{5574A177-6B98-4CA6-AFD9-17770B7A3684}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{90A42E52-3636-4374-89D3-7646190DFA07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90A42E52-3636-4374-89D3-7646190DFA07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90A42E52-3636-4374-89D3-7646190DFA07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5574A177-6B98-4CA6-AFD9-17770B7A3684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
