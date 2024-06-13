@@ -1,7 +1,27 @@
 ﻿@page "/"
+@using YummyInMyTummy.Model.Domain;
+@using YummyInMyTummy.Model.Contracts;
+@inject IRepository repo;
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Food</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Food</h1>
 
-Welcome to your new app.
+<RadzenGrid Data="@foods" TItem="Food">
+    <Columns>
+        <RadzenGridColumn Title="Name" TItem="Food" Property="Name" />
+        <RadzenGridColumn Title="Preis" TItem="Food" Property="Preis" />
+        <RadzenGridColumn Title="KCal" TItem="Food" Property="KCal" />
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+
+    IEnumerable<Food> foods;
+
+    protected override void OnInitialized()
+    {
+        foods = repo.Query<Food>().Where(x => x.KCal <= 200).ToList();
+    }
+}

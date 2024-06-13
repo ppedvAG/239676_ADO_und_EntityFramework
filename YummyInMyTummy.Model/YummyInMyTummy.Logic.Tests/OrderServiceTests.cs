@@ -162,6 +162,11 @@ namespace YummyInMyTummy.Logic.Tests
             throw new NotImplementedException();
         }
 
+        public IQueryable<T> Query<T>() where T : Entity
+        {
+            throw new NotImplementedException();
+        }
+
         public int SaveAll()
         {
             throw new NotImplementedException();

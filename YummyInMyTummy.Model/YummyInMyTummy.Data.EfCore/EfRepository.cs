@@ -32,6 +32,11 @@ namespace YummyInMyTummy.Data.EfCore
             return _context.Find<T>();
         }
 
+        public IQueryable<T> Query<T>() where T : Entity
+        {
+            return _context.Set<T>();
+        }
+
         public int SaveAll()
         {
             return _context.SaveChanges();

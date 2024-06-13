@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\YummyInMyTummy.Data.EfCore\YummyInMyTummy.Data.EfCore.csproj" />
+    <ProjectReference Include="..\YummyInMyTummy.Logic\YummyInMyTummy.Logic.csproj" />
+    <ProjectReference Include="..\YummyInMyTummy.Model\YummyInMyTummy.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot\app.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

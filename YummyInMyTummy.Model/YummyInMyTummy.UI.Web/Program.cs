@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using YummyInMyTummy.Data.EfCore;
+using YummyInMyTummy.Model.Contracts;
 using YummyInMyTummy.UI.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+string conString = "Server=(localdb)\\mssqllocaldb;Database=YummyInMyTummy_TestDb;Trusted_Connection=true;TrustServerCertificate=true;";
+var optionsBuilder = new DbContextOptionsBuilder<EfContext>();
+optionsBuilder.UseSqlServer(conString);
+optionsBuilder.UseLazyLoadingProxies();
+
+builder.Services.AddScoped<IRepository>(x => new EfRepository(optionsBuilder.Options));
 
 var app = builder.Build();
 
