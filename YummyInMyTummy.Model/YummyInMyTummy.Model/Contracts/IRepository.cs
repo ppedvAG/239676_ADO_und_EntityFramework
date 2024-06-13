@@ -11,5 +11,7 @@ namespace YummyInMyTummy.Model.Contracts
         void Delete<T>(T entity) where T : Entity;
         void Update<T>(T entity) where T : Entity;
         int SaveAll();
+
+        IEnumerable<Order> GetOrdersFromToday();
     }
 }

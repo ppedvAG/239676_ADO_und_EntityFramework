@@ -20,6 +20,17 @@ namespace YummyInMyTummy.Data.EfCore.Tests
         }
 
         [Fact]
+        public void Can_call_GetOrder_Stored_Proc()
+        {
+            var con = CreateContext();
+            con.Database.EnsureCreated();
+            
+            var result = con.GetOrdersFromTodayBySP();
+
+            Assert.NotNull(result);
+        }
+
+        [Fact]
         public void Can_create_Db()
         {
             var con = CreateContext();

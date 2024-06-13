@@ -13,7 +13,7 @@ namespace YummyInMyTummy.Data.EfCore
 
 #if DEBUG
         public EfContext()
-        {           
+        {
 
         }
 
@@ -31,6 +31,12 @@ namespace YummyInMyTummy.Data.EfCore
         public DbSet<Food> Foods { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Topping> Toppings { get; set; }
+
+
+        public IEnumerable<Order> GetOrdersFromTodayBySP()
+        {
+            return Orders.FromSql($"EXECUTE[dbo].[GetTodayOrders]");
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

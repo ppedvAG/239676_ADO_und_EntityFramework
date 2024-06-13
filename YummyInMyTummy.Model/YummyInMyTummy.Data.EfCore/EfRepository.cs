@@ -32,6 +32,11 @@ namespace YummyInMyTummy.Data.EfCore
             return _context.Find<T>(id);
         }
 
+        public IEnumerable<Order> GetOrdersFromToday()
+        {
+            return _context.GetOrdersFromTodayBySP();
+        }
+
         public IQueryable<T> Query<T>() where T : Entity
         {
             return _context.Set<T>();
