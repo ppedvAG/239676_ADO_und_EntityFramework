@@ -1,7 +1,9 @@
 ﻿@page "/order/{FoodIdToOrder}"
+@using YummyInMyTummy.Logic
 @using YummyInMyTummy.Model.Contracts
 @using YummyInMyTummy.Model.Domain
 @inject IRepository repo;
+@inject IOrderService os;
 @rendermode InteractiveServer
 
 <h3>Order</h3>
@@ -10,6 +12,31 @@
     You want order [@FoodIdToOrder]: <pre>@foodInfo</pre>
 </p>
 
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
+
+    <RadzenCard>
+        <RadzenRow>
+            <RadzenFormField Text="Name 1" Style="width: 100%;">
+                <RadzenTextBox @bind-value="@Address.Name1" Style="width: 100%;" />
+            </RadzenFormField>
+            <RadzenFormField Text="Name 2" Style="width: 100%;">
+                <RadzenTextBox @bind-value="@Address.Name2" Style="width: 100%;" />
+            </RadzenFormField>
+            <RadzenFormField Text="Street" Style="width: 100%;">
+                <RadzenTextBox @bind-value="@Address.Street" Style="width: 100%;" />
+            </RadzenFormField>
+            <RadzenFormField Text="City" Style="width: 100%;">
+                <RadzenTextBox @bind-value="@Address.City" Style="width: 100%;" />
+            </RadzenFormField>
+            <RadzenFormField Text="ZipCode" Style="width: 100%;">
+                <RadzenTextBox @bind-value="@Address.ZipCode" Style="width: 100%;" />
+            </RadzenFormField>
+            <RadzenButton IsBusy=@isBusy Click="@SendOrder" Text="Send Order" ButtonStyle="ButtonStyle.Primary" />
+            <RadzenText>Status: @order.Status</RadzenText>
+        </RadzenRow>
+    </RadzenCard>
+</RadzenStack>
+
 @code {
 
     [Parameter]
@@ -17,17 +44,34 @@
 
     string foodInfo;
 
+    public Address Address { get; set; } = new Address();
+    private Food? food;
+
+    Model.Domain.Order order;
+    bool isBusy;
+
+    async Task SendOrder()
+    {
+        isBusy = true;
+        order.OrderDate = DateTime.Now;
+        order.Items.Add(new OrderItem() { Order = order, Food = food });
+        await Task.Delay(500);
+        order = os.PlaceOrder(order);
+        isBusy = false;
+    }
+
     protected override void OnInitialized()
     {
+        order = new Model.Domain.Order() { PaymentAddress = Address };
         if (int.TryParse(FoodIdToOrder, out var foodId))
         {
-            var food = repo.GetById<Food>(foodId);
+            food = repo.GetById<Food>(foodId);
             if (food != null)
             {
                 if (food is Pizza p)
                 {
                     foodInfo = $"🍕 {food.Name} {food.KCal}KCal";
-                    
+
                     foreach (var t in p.Toppings)
                         foodInfo += $"\n->{t.Name}";
                 }

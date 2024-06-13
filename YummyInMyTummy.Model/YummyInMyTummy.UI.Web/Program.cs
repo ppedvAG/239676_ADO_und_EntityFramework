@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using YummyInMyTummy.Data.EfCore;
+using YummyInMyTummy.Logic;
 using YummyInMyTummy.Model.Contracts;
 using YummyInMyTummy.UI.Web.Components;
 
@@ -15,6 +16,7 @@ optionsBuilder.UseSqlServer(conString);
 optionsBuilder.UseLazyLoadingProxies();
 
 builder.Services.AddScoped<IRepository>(x => new EfRepository(optionsBuilder.Options));
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 

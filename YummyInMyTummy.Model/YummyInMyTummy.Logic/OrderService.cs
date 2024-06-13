@@ -3,13 +3,24 @@ using YummyInMyTummy.Model.Domain;
 
 namespace YummyInMyTummy.Logic
 {
-    public class OrderService
+    public class OrderService : IOrderService
     {
         private IRepository repo;
 
         public OrderService(IRepository repo)
         {
             this.repo = repo;
+        }
+
+        public Order PlaceOrder(Order order)
+        {
+            //todo validtae order
+
+            order.Status = OrderStatus.Accepted;
+            repo.Add(order);
+            repo.SaveAll();
+
+            return order;
         }
 
         public IEnumerable<Order> GetOpenOrders()
