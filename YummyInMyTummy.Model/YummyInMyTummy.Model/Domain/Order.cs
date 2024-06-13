@@ -3,6 +3,8 @@
 public class Order : Entity
 {
     public DateTime OrderDate { get; set; } = DateTime.Now;
+
+    public string Notes { get; set; }
     public OrderStatus Status { get; set; }
     public virtual Address? DeliveryAddress { get; set; }
     public virtual required Address PaymentAddress { get; set; }

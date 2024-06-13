@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using YummyInMyTummy.Model.Domain;
 
 namespace YummyInMyTummy.Data.EfCore
@@ -7,7 +8,22 @@ namespace YummyInMyTummy.Data.EfCore
     {
         public EfContext(DbContextOptions<EfContext> options) : base(options)
         {
+            Database.Migrate();
         }
+
+#if DEBUG
+        public EfContext()
+        {           
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string conString = "Server=(localdb)\\mssqllocaldb;Database=YummyInMyTummy_TestDb;Trusted_Connection=true;TrustServerCertificate=true;";
+            optionsBuilder.UseSqlServer(conString);
+        }
+#endif
+
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
