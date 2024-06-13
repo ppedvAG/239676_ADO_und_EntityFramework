@@ -133,20 +133,38 @@ namespace YummyInMyTummy.Logic.Tests
         }
     }
 
-    class TestRepo : IRepository
+    class TestUoW : IUnitOfWork
     {
-        public void Add<T>(T entity) where T : Entity
+        public IOrderRepo OrderRepo => new TestOrderRepo();
+
+        public IRepository<Address> AdressRepo => new TestRepo();
+
+        public IRepository<Food> FoodRepo => new TestRepo();
+
+        public int SaveAll()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    class TestOrderRepo : TestRepo, IOrderRepo
+    { }
+
+    class TestRepo : IRepository<T> where T : Entity
+    {
+        public void Add(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete<T>(T entity) where T : Entity
+        public void Delete(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll<T>() where T : Entity
+        public IEnumerable<T> GetAll()
         {
+            throw new NotImplementedException();
             if (typeof(T) == typeof(Order))
             {
                 var o1 = new Order() { OrderDate = DateTime.Now, PaymentAddress = new Address() { Name1 = "o1" } };
@@ -157,27 +175,17 @@ namespace YummyInMyTummy.Logic.Tests
             throw new NotImplementedException();
         }
 
-        public T? GetById<T>(int id) where T : Entity
+        public T? GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> GetOrdersFromToday()
+        public IQueryable<T> Query()
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<T> Query<T>() where T : Entity
-        {
-            throw new NotImplementedException();
-        }
-
-        public int SaveAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update<T>(T entity) where T : Entity
+        public void Update(T entity)
         {
             throw new NotImplementedException();
         }

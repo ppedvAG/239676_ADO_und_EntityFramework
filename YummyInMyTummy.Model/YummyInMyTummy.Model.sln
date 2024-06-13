@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YummyInMyTummy.Data.EfCore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YummyInMyTummy.Logic", "YummyInMyTummy.Logic\YummyInMyTummy.Logic.csproj", "{3965C29D-4FC3-4403-8C27-CB94CEE4DE4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YummyInMyTummy.Logic.Tests", "YummyInMyTummy.Logic.Tests\YummyInMyTummy.Logic.Tests.csproj", "{7823F61D-0534-4683-9F19-22108548B5F6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YummyInMyTummy.UI.Web", "YummyInMyTummy.UI.Web\YummyInMyTummy.UI.Web.csproj", "{94FFCED2-A2AC-4EC3-A330-3BE905F78038}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{3965C29D-4FC3-4403-8C27-CB94CEE4DE4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3965C29D-4FC3-4403-8C27-CB94CEE4DE4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3965C29D-4FC3-4403-8C27-CB94CEE4DE4A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7823F61D-0534-4683-9F19-22108548B5F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7823F61D-0534-4683-9F19-22108548B5F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7823F61D-0534-4683-9F19-22108548B5F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7823F61D-0534-4683-9F19-22108548B5F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94FFCED2-A2AC-4EC3-A330-3BE905F78038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94FFCED2-A2AC-4EC3-A330-3BE905F78038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FFCED2-A2AC-4EC3-A330-3BE905F78038}.Release|Any CPU.ActiveCfg = Release|Any CPU

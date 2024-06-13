@@ -5,9 +5,9 @@ namespace YummyInMyTummy.Logic
 {
     public class OrderService : IOrderService
     {
-        private IRepository repo;
+        private IUnitOfWork repo;
 
-        public OrderService(IRepository repo)
+        public OrderService(IUnitOfWork repo)
         {
             this.repo = repo;
         }
@@ -17,7 +17,7 @@ namespace YummyInMyTummy.Logic
             //todo validtae order
 
             order.Status = OrderStatus.Accepted;
-            repo.Add(order);
+            repo.OrderRepo.Add(order);
             repo.SaveAll();
 
             return order;
@@ -25,7 +25,7 @@ namespace YummyInMyTummy.Logic
 
         public IEnumerable<Order> GetOpenOrders()
         {
-            return repo.GetAll<Order>().Where(x => x.Status >= 0).OrderBy(x => x.OrderDate).ToList();
+            return repo.OrderRepo.GetAll().Where(x => x.Status >= 0).OrderBy(x => x.OrderDate).ToList();
         }
     }
 }

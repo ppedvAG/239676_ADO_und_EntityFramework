@@ -2,7 +2,7 @@
 @using YummyInMyTummy.Logic
 @using YummyInMyTummy.Model.Contracts
 @using YummyInMyTummy.Model.Domain
-@inject IRepository repo;
+@inject IUnitOfWork repo;
 @inject IOrderService os;
 @rendermode InteractiveServer
 
@@ -65,7 +65,7 @@
         order = new Model.Domain.Order() { PaymentAddress = Address };
         if (int.TryParse(FoodIdToOrder, out var foodId))
         {
-            food = repo.GetById<Food>(foodId);
+            food = repo.FoodRepo.GetById(foodId);
             if (food != null)
             {
                 if (food is Pizza p)

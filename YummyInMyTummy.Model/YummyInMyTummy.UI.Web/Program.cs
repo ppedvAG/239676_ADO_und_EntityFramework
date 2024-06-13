@@ -15,7 +15,8 @@ var optionsBuilder = new DbContextOptionsBuilder<EfContext>();
 optionsBuilder.UseSqlServer(conString);
 optionsBuilder.UseLazyLoadingProxies();
 
-builder.Services.AddScoped<IRepository>(x => new EfRepository(optionsBuilder.Options));
+//builder.Services.AddScoped<IRepository>(x => new EfRepository(optionsBuilder.Options));
+builder.Services.AddScoped<IUnitOfWork>(x => new EfUnitOfWork(optionsBuilder.Options));
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();

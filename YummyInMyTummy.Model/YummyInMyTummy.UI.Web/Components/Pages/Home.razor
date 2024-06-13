@@ -2,7 +2,7 @@
 @using YummyInMyTummy.Model.Domain;
 @using YummyInMyTummy.Model.Contracts;
 @using System.Linq.Dynamic.Core
-@inject IRepository repo;
+@inject IUnitOfWork repo;
 @rendermode InteractiveServer
 
 <PageTitle>Food</PageTitle>
@@ -39,7 +39,7 @@
 
     void LoadData(LoadDataArgs args)
     {
-        var query = repo.Query<Food>();
+        var query = repo.FoodRepo.Query();
 
         if (!string.IsNullOrEmpty(args.Filter))
         {
