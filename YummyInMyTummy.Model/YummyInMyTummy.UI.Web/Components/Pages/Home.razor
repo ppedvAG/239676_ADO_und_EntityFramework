@@ -1,27 +1,64 @@
 ﻿@page "/"
 @using YummyInMyTummy.Model.Domain;
 @using YummyInMyTummy.Model.Contracts;
+@using System.Linq.Dynamic.Core
 @inject IRepository repo;
+@rendermode InteractiveServer
 
 <PageTitle>Food</PageTitle>
 
 <h1>Food</h1>
 
-<RadzenGrid Data="@foods" TItem="Food">
+<RadzenButton Click="@LoadFood">Load Food</RadzenButton>
+
+<RadzenDataGrid @ref="grid" AllowSorting="true" AllowFiltering="true" Data="@foods" Count="@foodCount" TItem="Food" LoadData="@LoadData">
     <Columns>
-        <RadzenGridColumn Title="Name" TItem="Food" Property="Name" />
-        <RadzenGridColumn Title="Preis" TItem="Food" Property="Preis" />
-        <RadzenGridColumn Title="KCal" TItem="Food" Property="KCal" />
+        <RadzenDataGridColumn Width="60px" Sortable="false" Filterable="false">
+            <Template Context="data">
+                <RadzenLink Path="@("/Order/"+data.Id)">➕</RadzenLink>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Title="Name" TItem="Food" Property="Name" />
+        <RadzenDataGridColumn Title="Preis" TItem="Food" Property="Preis" />
+        <RadzenDataGridColumn Title="KCal" TItem="Food" Property="KCal" />
     </Columns>
-</RadzenGrid>
+</RadzenDataGrid>
 
 
 @code {
 
     IEnumerable<Food> foods;
+    int foodCount;
+
+    RadzenDataGrid<Food> grid = new RadzenDataGrid<Food>();
+
+    void LoadFood()
+    {
+        grid.Reload();
+    }
+
+    void LoadData(LoadDataArgs args)
+    {
+        var query = repo.Query<Food>();
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            // Filter via the Where method
+            query = query.Where(args.Filter);
+        }
+
+        if (!string.IsNullOrEmpty(args.OrderBy))
+        {
+            // Sort via the OrderBy method
+            query = query.OrderBy(args.OrderBy);
+        }
+
+        foodCount = query.Count();
+        foods = query.ToList();
+    }
 
     protected override void OnInitialized()
     {
-        foods = repo.Query<Food>().Where(x => x.KCal <= 200).ToList();
+        LoadData(new LoadDataArgs());
     }
 }

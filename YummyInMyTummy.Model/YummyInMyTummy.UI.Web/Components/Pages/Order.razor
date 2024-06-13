@@ -1,0 +1,40 @@
+﻿@page "/order/{FoodIdToOrder}"
+@using YummyInMyTummy.Model.Contracts
+@using YummyInMyTummy.Model.Domain
+@inject IRepository repo;
+@rendermode InteractiveServer
+
+<h3>Order</h3>
+
+<p>
+    You want order [@FoodIdToOrder]: <pre>@foodInfo</pre>
+</p>
+
+@code {
+
+    [Parameter]
+    public string? FoodIdToOrder { get; set; }
+
+    string foodInfo;
+
+    protected override void OnInitialized()
+    {
+        if (int.TryParse(FoodIdToOrder, out var foodId))
+        {
+            var food = repo.GetById<Food>(foodId);
+            if (food != null)
+            {
+                if (food is Pizza p)
+                {
+                    foodInfo = $"🍕 {food.Name} {food.KCal}KCal";
+                    
+                    foreach (var t in p.Toppings)
+                        foodInfo += $"\n->{t.Name}";
+                }
+                else
+                    foodInfo = $"🍝 {food.Name} {food.KCal} KCal";
+            }
+        }
+    }
+
+}

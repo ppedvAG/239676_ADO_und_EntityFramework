@@ -29,7 +29,7 @@ namespace YummyInMyTummy.Data.EfCore
 
         public T? GetById<T>(int id) where T : Entity
         {
-            return _context.Find<T>();
+            return _context.Find<T>(id);
         }
 
         public IQueryable<T> Query<T>() where T : Entity
